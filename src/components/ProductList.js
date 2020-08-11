@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, Button, Modal } from 'react-bootstrap';
+import { Row, Col, Card, Button, Modal, Image } from 'react-bootstrap';
 
 import { storeProducts } from '../data';
 import '../css/Product.css';
@@ -7,9 +7,15 @@ import '../css/Product.css';
 const ProductList = () => {
 
     const [show, setShow] = useState(false);
+    const [product, setProduct] = useState([]);
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = (product_id) => {
+        let product = storeProducts.find(product => product.id === product_id);
+        console.log(product);
+        setProduct(product);
+        setShow(true);
+    }
 
     return (
         <React.Fragment>
@@ -24,7 +30,7 @@ const ProductList = () => {
                                     <Card.Text>
                                         {product.short_description}
                                     </Card.Text>
-                                    <Button variant="primary" onClick={handleShow}>
+                                    <Button variant="primary" onClick={() => handleShow(product.id)}>
                                         View Details
                                     </Button>
                                 </Card.Body>
@@ -33,22 +39,31 @@ const ProductList = () => {
                     )
                 })}
             </Row>
+            
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>{product.title}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                <Modal.Body>
+                    <Row>
+                        <Col md={6}>
+                            <Image src={product.img} style={{width: '250px'}} />
+                        </Col>
+                        <Col md={6}>
+                            {product.long_description}
+                        </Col>
+                    </Row>
+                </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
                     <Button variant="primary" onClick={handleClose}>
-                        Save Changes
+                        Add To Cart
                     </Button>
                 </Modal.Footer>
             </Modal>
         </React.Fragment>
-        
     )
 }
 
