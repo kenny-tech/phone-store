@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import Navbar from './components/NavigationBar';
+import Product from './components/Product';
 
 const App = () => {
   return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={Navbar}></Route>
+          <Route exact path="/" component={Product}></Route>
         </Switch>
       </BrowserRouter>
   )

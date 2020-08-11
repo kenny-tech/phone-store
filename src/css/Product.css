@@ -1,0 +1,14 @@
+.productCard {
+    width: '18rem'
+}
+
+.productImage {
+    width: '10px';
+    height: '5px';
+}
+
+.modalProductImage {
+    width: '10px';
+    height: '5px';
+    margin-left: auto;
+}
