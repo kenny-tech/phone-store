@@ -9,7 +9,9 @@ export default (state = initialState, action) => {
         case ADD_TO_CART: 
             return {
                 ...state,
-                cart: [action.payload, ...state.cart]
+                cart: [action.payload, ...state.cart],
+                isCart: true,
+                addedProduct: action.payload.product_title
             }
         default: 
             return state;

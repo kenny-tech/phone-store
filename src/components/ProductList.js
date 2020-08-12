@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, Button, Modal, Image } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { Row, Col, Card, Button, Modal, Image, Toast } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { addToCart } from '../actions/cart';
 import { storeProducts } from '../data';
@@ -12,6 +12,8 @@ const ProductList = () => {
     const [product, setProduct] = useState([]);
 
     const dispatch = useDispatch();
+    const is_cart = useSelector(state => state.cart.isCart);
+    const added_product = useSelector(state => state.cart.addedProduct);
 
     const handleClose = () => setShow(false);
     
@@ -23,13 +25,26 @@ const ProductList = () => {
     }
 
     const handleAddToCart = (product_id,product_title,product_price) => {
-        alert(product_title + ' successfully added to cart');
         dispatch(addToCart(product_id,product_title,product_price));
         setShow(false);
     }
 
     return (
         <Row>
+            {
+                is_cart ? (<Toast
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      right: 0,
+                    }}
+                  >
+                    <Toast.Header>
+                        <strong className="mr-auto">Success</strong>
+                    </Toast.Header>
+                    <Toast.Body>{added_product} successfully added to cart</Toast.Body>
+                  </Toast>) : null
+            }
             {storeProducts.map(product => {
                 return (
                     <Col md={3} className="m-2" key={product.id}>
