@@ -11,6 +11,10 @@ const ProductList = () => {
     const [show, setShow] = useState(false);
     const [product, setProduct] = useState([]);
 
+    const [showA, setShowA] = useState(true);
+
+    const toggleShowA = () => setShowA(!showA);
+
     const dispatch = useDispatch();
     const is_cart = useSelector(state => state.cart.isCart);
     const added_product = useSelector(state => state.cart.addedProduct);
@@ -27,6 +31,7 @@ const ProductList = () => {
     const handleAddToCart = (product_id,product_title,product_price) => {
         dispatch(addToCart(product_id,product_title,product_price));
         setShow(false);
+        setShowA(true);
     }
 
     return (
@@ -38,6 +43,8 @@ const ProductList = () => {
                       top: 0,
                       right: 0,
                     }}
+                    delay={3000} autohide
+                    show={showA} onClose={toggleShowA}
                   >
                     <Toast.Header>
                         <strong className="mr-auto">Success</strong>

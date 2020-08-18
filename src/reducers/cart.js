@@ -13,6 +13,7 @@ export default (state = initialState, action) => {
                 isCart: true,
                 addedProduct: action.payload.product_title
             }
+            
         default: 
             return state;
     }
